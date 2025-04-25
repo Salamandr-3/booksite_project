@@ -1,15 +1,14 @@
-entrypoint = "main.py"
-modules = ["python-3.11"]
+[workflows]
+runButton = "Run"
 
-[nix]
-channel = "stable-24_05"
+[[workflows.workflow]]
+name = "Run"
+author = 41938511
+mode = "sequential"
 
-[unitTest]
-language = "python3"
-
-[gitHubImport]
-requiredFiles = [".replit", "replit.nix"]
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "python manage.py migrate && python manage.py runserver 0.0.0.0:5000"
 
 [deployment]
-run = ["python3", "main.py"]
-deploymentTarget = "cloudrun"
+run = ["sh", "-c", "python manage.py migrate && python manage.py runserver 0.0.0.0:5000"]

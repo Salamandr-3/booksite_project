@@ -1,0 +1,18 @@
+{% extends 'books/base.html' %}
+{% load static %}
+
+{% block title %}Каталог{% endblock %}
+
+{% block content %}
+<div class="book-grid">
+    {% for book in books %}
+    <div class="book-card">
+        <img src="{% static book.image %}" alt="{{ book.title }}">
+        <h3>{{ book.title }}</h3>
+        <p>{{ book.description }}</p>
+        <p class="author">{{ book.author }}</p>
+        <span class="genre">{{ book.genre }}</span>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

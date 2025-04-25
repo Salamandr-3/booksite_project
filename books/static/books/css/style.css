@@ -1,0 +1,440 @@
+:root {
+  --primary-color: #8B5CF6;
+  --background-dark: #111827;
+  --background-darker: #000000;
+  --text-light: #F3F4F6;
+  --text-gray: #9CA3AF;
+}
+
+@font-face {
+  font-family: 'Roboto';
+  src: url('fonts/Roboto-Regular.woff2') format('woff2'),
+       url('fonts/Roboto-Regular.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Roboto', 'Helvetica Neue', Arial, sans-serif;
+  background: linear-gradient(to bottom, var(--background-dark), var(--background-darker));
+  color: var(--text-light);
+  min-height: 100vh;
+}
+
+/* Шапка и навигация */
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  padding: 1rem 0;
+  background: rgba(0, 0, 0, 0.8);
+  backdrop-filter: blur(8px);
+  z-index: 1000;
+  transition: padding 0.3s ease;
+}
+
+.nav-menu {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo-text {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: var(--text-light);
+}
+
+.accent {
+  color: var(--primary-color);
+}
+
+.nav-links {
+  display: flex;
+  gap: 2rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.nav-links a {
+  color: var(--text-gray);
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.nav-links a:hover {
+  color: var(--text-light);
+}
+
+.nav-links .active {
+  color: var(--text-light) !important;
+  position: relative;
+}
+
+.nav-links .active::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background-color: var(--primary-color);
+}
+
+/* Основной контент */
+main {
+  padding-top: 5rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 6rem 1rem 2rem;
+}
+
+.hero {
+  text-align: center;
+  padding: 4rem 0;
+}
+
+.hero h1 {
+  font-size: 3.5rem;
+  margin-bottom: 1rem;
+}
+
+.quote {
+  display: block;
+  color: var(--primary-color);
+  font-size: 1.2rem;
+  margin: 2rem 0;
+}
+
+/* Карточки книг */
+.book-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 2.5rem;
+  margin: 2rem 0;
+  padding: 1rem;
+}
+
+.book-card {
+  background: rgba(31, 41, 55, 0.5);
+  border: 1px solid var(--primary-color);
+  border-radius: 0.5rem;
+  padding: 1.5rem;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  opacity: 0;
+  animation: fadeIn 0.5s ease forwards;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.book-card:nth-child(1) {
+  animation-delay: 0.1s;
+}
+
+.book-card:nth-child(2) {
+  animation-delay: 0.3s;
+}
+
+.book-card:nth-child(3) {
+  animation-delay: 0.5s;
+}
+
+.book-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 10px 20px rgba(139, 92, 246, 0.3);
+}
+
+.book-card img {
+  width: 100%;
+  height: 300px;
+  object-fit: cover;
+  border-radius: 0.25rem;
+  margin-bottom: 1.5rem;
+}
+
+/* Кнопки */
+.button {
+  display: inline-block;
+  padding: 0.5rem 1rem;
+  background: var(--primary-color);
+  color: var(--text-light);
+  text-decoration: none;
+  border-radius: 0.25rem;
+  transition: background-color 0.3s ease;
+  border: none;
+  cursor: pointer;
+}
+
+.button:hover {
+  background: #7C3AED;
+}
+
+/* Списки */
+.features-list {
+  padding-left: 1.5rem;
+  margin: 1rem 0;
+  color: var(--text-gray);
+}
+
+/* Категории */
+.categories-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+  margin: 2rem 0;
+}
+
+.category-card {
+  background: rgba(31, 41, 55, 0.5);
+  border: 1px solid var(--primary-color);
+  padding: 2rem;
+  border-radius: 0.5rem;
+  text-align: center;
+  color: var(--text-light);
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+.category-card:hover {
+  background: rgba(31, 41, 55, 0.8);
+  transform: translateY(-5px);
+}
+
+.header.scrolled {
+  padding: 0.5rem 0;
+  animation: slideDown 0.3s ease-out;
+}
+
+/* Добавляем анимацию появления */
+@keyframes fadeIn {
+  0% {
+      opacity: 0;
+      transform: translateY(30px) scale(0.9);
+  }
+  60% {
+      transform: translateY(-7px) scale(1.02);
+  }
+  100% {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+  }
+}
+
+/* Медиа-запросы для адаптивности */
+@media (max-width: 768px) {
+    .nav-links {
+        display: none;
+    }
+
+    .hero h1 {
+        font-size: 2.5rem;
+    }
+
+    .book-grid {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+    .categories-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Стили для формы входа */
+.login-form {
+    max-width: 500px;
+    margin: 0 auto;
+    background: rgba(31, 41, 55, 0.5);
+    border: 1px solid var(--primary-color);
+    border-radius: 0.5rem;
+    padding: 2rem;
+}
+
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1050;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(5px);
+}
+
+.modal-content {
+    position: relative;
+    background: rgba(31, 41, 55, 0.9);
+    margin: 5% auto;
+    padding: 2rem;
+    border: 1px solid var(--primary-color);
+    border-radius: 0.5rem;
+    width: 90%;
+    max-width: 600px;
+    animation: modalSlideIn 0.3s ease;
+}
+
+.close-btn {
+    position: absolute !important;
+    right: 1rem !important;
+    top: 1rem !important;
+    left: auto !important;
+    font-size: 1.5rem;
+    color: var(--text-gray);
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+.close-btn:hover {
+    color: var(--text-light);
+}
+
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+.form-row {
+    display: flex;
+    gap: 1rem;
+}
+
+.form-row .form-group {
+    flex: 1;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    color: var(--text-light);
+    position: relative;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 0.8rem 0.6rem;
+    border-radius: 0.25rem;
+    background: rgba(31, 41, 55, 0.8);
+    border: 1px solid var(--text-gray);
+    color: var(--text-light);
+    transition: all 0.3s ease;
+    box-sizing: border-box;
+}
+
+.form-group input:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 2px rgba(139, 92, 246, 0.3);
+}
+
+.feedback {
+    font-size: 0.85rem;
+    margin-top: 0.5rem;
+    display: none;
+}
+
+.valid .feedback.success {
+    display: block;
+    color: #10B981;
+}
+
+.invalid .feedback.error {
+    display: block;
+    color: #EF4444;
+}
+
+.submit-btn {
+    width: 100%;
+    padding: 0.8rem;
+    background: var(--primary-color);
+    color: var(--text-light);
+    border: none;
+    border-radius: 0.25rem;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.submit-btn:hover {
+    background: #7C3AED;
+}
+
+.submit-btn:disabled {
+    background: #6B7280;
+    cursor: not-allowed;
+}
+
+.register-link {
+    text-align: center;
+    margin-top: 1rem;
+    color: var(--text-gray);
+}
+
+.register-link a {
+    color: var(--primary-color);
+    text-decoration: none;
+}
+
+.register-link a:hover {
+    text-decoration: underline;
+}
+
+@media (max-width: 576px) {
+    .form-row {
+        flex-direction: column;
+        gap: 1.5rem;
+    }
+}
+
+@keyframes modalSlideIn {
+    from {
+        transform: translateY(-50px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+/* Стили каталога */
+.catalog-layout {
+    display: grid;
+    grid-template-columns: 250px 1fr;
+    gap: 2rem;
+    margin-top: 2rem;
+}
+
+.filters {
+    background: rgba(31, 41, 55, 0.5);
+    border: 1px solid var(--primary-color);
+    border-radius: 0.5rem;
+    padding: 1.5rem;
+}
+
+.filters h2 {
+    margin-top: 0;
+    color: var(--primary-color);
+}
+
+.filters a {
+    color: var(--text-gray);
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.filters a:hover {
+    color: var(--primary-color) !important;
+}
+
+@media (max-width: 768px) {
+    .catalog-layout {
+        grid-template-columns: 1fr;
+    }
+}
