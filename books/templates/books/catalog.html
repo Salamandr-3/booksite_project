@@ -1,3 +1,4 @@
+
 {% extends 'books/base.html' %}
 {% load static %}
 
@@ -11,7 +12,8 @@
         <h3>{{ book.title }}</h3>
         <p>{{ book.description }}</p>
         <p class="author">{{ book.author }}</p>
-        <span class="genre">{{ book.genre }}</span>
+        <p class="price">{{ book.price }} ₽</p>
+        <a href="{% url 'book_detail' book.id %}" class="btn">Подробнее</a>
     </div>
     {% endfor %}
 </div>
