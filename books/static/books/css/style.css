@@ -132,6 +132,7 @@ main {
   opacity: 0;
   animation: fadeIn 0.5s ease forwards;
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  text-align: center;
 }
 
 .book-card:nth-child(1) {
@@ -174,6 +175,20 @@ main {
 
 .button:hover {
   background: #7C3AED;
+}
+
+.btn {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    margin-top: 10px;
+}
+
+.btn:hover {
+    background-color: #0056b3;
 }
 
 /* Списки */
