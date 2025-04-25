@@ -13,10 +13,6 @@ DEBUG = True
 ALLOWED_HOSTS = ['*']
 CSRF_TRUSTED_ORIGINS = ['https://*.replit.dev']
 
-AUTH_USER_MODEL = 'books.User'
-LOGIN_REDIRECT_URL = '/'
-LOGOUT_REDIRECT_URL = '/'
-
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',

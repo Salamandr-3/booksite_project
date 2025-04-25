@@ -1,9 +1,5 @@
 from django.db import models
-from django.contrib.auth.models import AbstractUser
 from django.db.models import Manager
-
-class User(AbstractUser):
-    phone = models.CharField(max_length=15, blank=True)
 
 
 class Book(models.Model):
