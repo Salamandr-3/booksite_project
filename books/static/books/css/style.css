@@ -180,7 +180,7 @@ main {
 .btn {
     display: inline-block;
     padding: 10px 20px;
-    background-color: #007bff;
+    background-color: var(--primary-color);
     color: white;
     text-decoration: none;
     border-radius: 5px;
@@ -188,7 +188,7 @@ main {
 }
 
 .btn:hover {
-    background-color: #0056b3;
+    background-color: #7C3AED;
 }
 
 /* Списки */
