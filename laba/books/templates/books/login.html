@@ -69,23 +69,34 @@ document.addEventListener('DOMContentLoaded', function() {
                 'X-Requested-With': 'XMLHttpRequest'
             }
         })
-        .then(response => response.json())
+        .then(response => {
+            const contentType = response.headers.get('content-type') || '';
+            if (!contentType.includes('application/json')) {
+                form.submit();
+                return null;
+            }
+            return response.json();
+        })
         .then(data => {
+            if (!data) {
+                return;
+            }
             if (data.success) {
                 window.location.href = data.redirect_url;
-            } else {
-                if (data.errors) {
-                    if (data.errors.username) {
-                        showFieldError(usernameGroup, data.errors.username);
-                    }
-                    if (data.errors.password) {
-                        showFieldError(passwordGroup, data.errors.password);
-                    }
-                    if (data.errors.__all__) {
-                        showFieldError(passwordGroup, data.errors.__all__);
-                    }
+            } else if (data.errors) {
+                if (data.errors.username) {
+                    showFieldError(usernameGroup, data.errors.username);
+                }
+                if (data.errors.password) {
+                    showFieldError(passwordGroup, data.errors.password);
+                }
+                if (data.errors.__all__) {
+                    showFieldError(passwordGroup, data.errors.__all__);
                 }
             }
+        })
+        .catch(() => {
+            form.submit();
         });
     });
 
