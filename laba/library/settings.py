@@ -24,6 +24,7 @@ if os.getenv('CODESPACE_NAME') and os.getenv('GITHUB_CODESPACES_PORT_FORWARDING_
         f"https://{os.environ['CODESPACE_NAME']}-8000.{os.environ['GITHUB_CODESPACES_PORT_FORWARDING_DOMAIN']}"
     )
 
+
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
