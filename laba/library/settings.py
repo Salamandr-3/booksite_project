@@ -11,7 +11,18 @@ SECRET_KEY = 'django-insecure-your-secret-key'
 DEBUG = True
 
 ALLOWED_HOSTS = ['*']
-CSRF_TRUSTED_ORIGINS = ['https://*.replit.dev']
+CSRF_TRUSTED_ORIGINS = [
+    'https://*.replit.dev',
+    'http://localhost:8000',
+    'http://127.0.0.1:8000',
+    'https://localhost:8000',
+    'https://127.0.0.1:8000',
+]
+
+if os.getenv('CODESPACE_NAME') and os.getenv('GITHUB_CODESPACES_PORT_FORWARDING_DOMAIN'):
+    CSRF_TRUSTED_ORIGINS.append(
+        f"https://{os.environ['CODESPACE_NAME']}-8000.{os.environ['GITHUB_CODESPACES_PORT_FORWARDING_DOMAIN']}"
+    )
 
 INSTALLED_APPS = [
     'django.contrib.admin',
