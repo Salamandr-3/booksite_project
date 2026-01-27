@@ -1,0 +1,140 @@
+{% extends 'books/base.html' %}
+{% load static %}
+
+{% block title %}Регистрация{% endblock %}
+
+{% block content %}
+<div class="auth-container">
+    <h1>Регистрация</h1>
+    <p>Создайте учетную запись для доступа к библиотеке</p>
+
+    {% if messages %}
+    <div class="messages">
+        {% for message in messages %}
+        <div class="alert {% if message.tags %}alert-{{ message.tags }}{% endif %}">
+            {{ message }}
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+
+    <!-- Добавляем отладочную информацию -->
+    {% if form.errors %}
+    <div class="messages">
+        <div class="alert alert-error">
+            <h4>Ошибки формы:</h4>
+            {{ form.errors }}
+        </div>
+    </div>
+    {% endif %}
+
+    <form method="post" action="{% url 'register' %}" class="login-form" id="registerForm">
+        {% csrf_token %}
+        <div class="form-group" id="emailGroup">
+            {{ form.email.label_tag }}
+            {{ form.email }}
+            <div class="feedback error" style="display: none;"></div>
+        </div>
+
+        <div class="form-group" id="usernameGroup">
+            {{ form.username.label_tag }}
+            {{ form.username }}
+            <div class="feedback error" style="display: none;"></div>
+        </div>
+
+        <div class="form-group" id="passwordGroup">
+            {{ form.password1.label_tag }}
+            {{ form.password1 }}
+            <div class="feedback error" style="display: none;"></div>
+            {% if form.password1.help_text %}
+            <div class="feedback help">{{ form.password1.help_text }}</div>
+            {% endif %}
+        </div>
+
+        <div class="form-group" id="confirmPasswordGroup">
+            {{ form.password2.label_tag }}
+            {{ form.password2 }}
+            <div class="feedback error" style="display: none;"></div>
+            {% if form.password2.help_text %}
+            <div class="feedback help">{{ form.password2.help_text }}</div>
+            {% endif %}
+        </div>
+
+        <button type="submit" class="submit-btn">Зарегистрироваться</button>
+
+        <div class="register-link">
+            Уже есть учетная запись? <a href="{% url 'login' %}">Войти</a>
+        </div>
+    </form>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const form = document.getElementById('registerForm');
+    const formGroups = {
+        email: document.getElementById('emailGroup'),
+        username: document.getElementById('usernameGroup'),
+        password1: document.getElementById('passwordGroup'),
+        password2: document.getElementById('confirmPasswordGroup')
+    };
+
+    function showFieldError(field, message) {
+        const errorDiv = field.querySelector('.feedback.error');
+        errorDiv.textContent = message;
+        errorDiv.style.display = 'block';
+        field.classList.add('invalid');
+    }
+
+    function clearErrors() {
+        Object.values(formGroups).forEach(group => {
+            group.classList.remove('invalid');
+            const errorDiv = group.querySelector('.feedback.error');
+            errorDiv.style.display = 'none';
+            errorDiv.textContent = '';
+        });
+    }
+
+    form.addEventListener('submit', function(e) {
+        e.preventDefault();
+        clearErrors();
+
+        const formData = new FormData(form);
+        
+        fetch(form.action, {
+            method: 'POST',
+            body: formData,
+            headers: {
+                'X-Requested-With': 'XMLHttpRequest'
+            }
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                window.location.href = data.redirect_url;
+            } else {
+                if (data.errors) {
+                    Object.entries(data.errors).forEach(([field, message]) => {
+                        if (formGroups[field]) {
+                            showFieldError(formGroups[field], message);
+                        }
+                    });
+                }
+            }
+        });
+    });
+
+    // Очистка ошибок при фокусе на поле
+    Object.values(formGroups).forEach(group => {
+        const input = group.querySelector('input');
+        if (input) {
+            input.addEventListener('focus', function() {
+                group.classList.remove('invalid');
+                group.querySelector('.feedback.error').style.display = 'none';
+            });
+        }
+    });
+});
+</script>
+{% endblock %}

@@ -1,0 +1,44 @@
+
+{% extends 'books/base.html' %}
+{% load static %}
+
+{% block title %}О нас{% endblock %}
+
+{% block content %}
+<div class="about-content">
+    <h1>О нас</h1>
+    <p>МирКниг - ваш надежный партнер в мире литературы</p>
+    <div class="about-grid">
+            <section class="mission">
+                <h2><span class="accent">Наша</span> миссия</h2>
+                <p>
+                    Мы стремимся сделать книги доступными для каждого читателя.
+                    <br/>
+                    Наша библиотека - это место, где встречаются читатели и книги.
+                </p>
+                <em class="quote">
+                    "Книги - это окна в мир воображения"
+                </em>
+                <video class="library-tour" controls poster="{% static 'books/img/library-poster.jpg' %}">
+                    <source src="{% static 'books/video/library-tour.mp4' %}" type="video/mp4">
+                    Ваш браузер не поддерживает видео.
+                </video>
+            </section>
+
+            <section class="achievements">
+                <h2><span class="accent">Наши</span> достижения</h2>
+                <ul class="achievements-list">
+                    <li>
+                        <strong>10,000+</strong> книг в каталоге
+                    </li>
+                    <li>
+                        <strong>1,000+</strong> активных читателей
+                    </li>
+                    <li>
+                        <strong>5 лет</strong> успешной работы
+                    </li>
+                </ul>
+            </section>
+    </div>
+</div>
+{% endblock %}
