@@ -7,7 +7,7 @@ workers = multiprocessing.cpu_count() * 2 + 1
 wsgi_app = "library.wsgi:application"
 
 # Хост и порт
-bind = "127.0.0.1:8000"
+bind = "0.0.0.0:8000"
 
 # Таймауты
 timeout = 120
