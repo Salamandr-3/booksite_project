@@ -1,4 +1,29 @@
-modules = ["python-3.11"]
+run = "sh start_replit.sh"
+hidden = [".config", "package.json"]
+modules = ["python-3.10:v8-20230907-322e88b"]
+
+[nix]
+channel = "stable-22_11"
+
+[env]
+PYTHONPATH = "${PYTHONPATH}:${REPL_HOME}"
+PYTHONUNBUFFERED = "1"
+
+[packager]
+language = "python3"
+ignoredPackages = ["unit_tests"]
+
+[packager.features]
+enabledForHosting = false
+packageSearch = true
+guessImports = true
+enabledForHosting = false
+
+[languages.python3]
+pattern = "**/{*.py,*.py3,*.python}"
+
+[languages.python3.languageServer]
+start = "pylsp"
 
 [workflows]
 runButton = "Run"

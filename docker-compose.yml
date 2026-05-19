@@ -1,0 +1,15 @@
+services:
+  web:
+    build: .
+    ports:
+      - "8000:8000"
+    environment:
+      DJANGO_DEBUG: "1"
+      DJANGO_ALLOWED_HOSTS: "*"
+      DJANGO_SECRET_KEY: "django-insecure-local-docker-key-change-me"
+      SQLITE_PATH: "/app/data/db.sqlite3"
+    volumes:
+      - laba_data:/app/data
+
+volumes:
+  laba_data:

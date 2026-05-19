@@ -7,7 +7,7 @@
 {% block content %}
 <div class="book-detail">
     <div class="book-image">
-        <img src="{% static book.image %}" alt="{{ book.title }}">
+        <img src="{% static book.static_image_path %}" alt="{{ book.title }}">
     </div>
     <div class="book-info">
         <h1>{{ book.title }}</h1>

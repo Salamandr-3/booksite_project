@@ -17,7 +17,7 @@
     <div class="book-grid">
         {% for book in featured_books %}
         <div class="book-card">
-            <img src="{% static book.image %}" alt="{{ book.title }}">
+            <img src="{% static book.static_image_path %}" alt="{{ book.title }}">
             <h3>{{ book.title }}</h3>
             <p>{{ book.description }}</p>
             <a href="{% url 'book_detail' book.id %}" class="button">Читать далее →</a>

@@ -1,4 +1,3 @@
-
 document.addEventListener('DOMContentLoaded', function() {
     // Анимация появления карточек при прокрутке
     const observeCards = () => {
@@ -68,16 +67,9 @@ document.addEventListener('DOMContentLoaded', function() {
         });
 
         form.addEventListener('submit', function(e) {
-            e.preventDefault();
-            if (!submitButton.disabled) {
-                const successMessage = form.id === 'loginForm'
-                    ? 'Вход выполнен успешно! Добро пожаловать в МирКниг!'
-                    : 'Регистрация выполнена успешно! Теперь вы можете войти в систему!';
-                alert(successMessage);
-                form.reset();
-                if (form.id === 'registerForm') {
-                    registerModal.style.display = 'none';
-                }
+            if (submitButton && submitButton.disabled) {
+                e.preventDefault();
+                return;
             }
         });
     }
@@ -112,22 +104,35 @@ document.addEventListener('DOMContentLoaded', function() {
     if (loginForm) {
         const emailInput = document.getElementById('email');
         const passwordInput = document.getElementById('password');
-        const submitBtn = document.getElementById('submitBtn');
+        const submitBtn = loginForm.querySelector('.submit-btn');
 
         function checkLoginFormValidity() {
             if (!emailInput || !passwordInput || !submitBtn) return;
-            const isEmailValid = validateInput(emailInput);
-            const isPasswordValid = validateInput(passwordInput);
+            
+            // Проверяем, что оба поля не пустые
+            const isEmailValid = emailInput.value.trim() !== '';
+            const isPasswordValid = passwordInput.value.trim() !== '';
+            
+            // Активируем/деактивируем кнопку
             submitBtn.disabled = !(isEmailValid && isPasswordValid);
+            
+            // Добавляем/убираем классы валидации
+            emailInput.parentElement.classList.toggle('valid', isEmailValid);
+            emailInput.parentElement.classList.toggle('invalid', !isEmailValid);
+            passwordInput.parentElement.classList.toggle('valid', isPasswordValid);
+            passwordInput.parentElement.classList.toggle('invalid', !isPasswordValid);
         }
 
-        if (submitBtn) submitBtn.disabled = true;
-        setupFormValidation(
-            loginForm,
-            [emailInput, passwordInput],
-            submitBtn,
-            checkLoginFormValidity
-        );
+        // Добавляем обработчики событий для полей ввода
+        [emailInput, passwordInput].forEach(input => {
+            if (input) {
+                input.addEventListener('input', checkLoginFormValidity);
+                input.addEventListener('blur', checkLoginFormValidity);
+            }
+        });
+
+        // Инициализируем состояние кнопки
+        checkLoginFormValidity();
     }
 
     // Проверка формы регистрации
